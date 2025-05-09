@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Library.Models.Book>
+
+@{
+    ViewData["Title"] = "LibaryHomepage";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+<div class="bg-image-container"
+         style="background-image: url('https://img.freepik.com/free-photo/high-angle-books-stack-with-copy-space_23-2148898283.jpg?t=st=1736611906~exp=1736615506~hmac=8595ace72bfe7d0f566e9418fe2863806c467981eb0e8bb86e2945457e84cad6&w=996'); background-size: cover; background-position: center; height: 100%; width: 100%;">
+    <div class="container">
+        <div class="carousel-caption text-light text-start">
+            <h1>Explore Our Library Collection</h1>
+            <p class="opacity-75">
+                Discover a world of knowledge, from classic novels to modern research papers. <br>
+                Our library has something for everyone, whether you're looking for fiction,<br> non-fiction, or academic resources.
+            </p>
+            <p><a class="btn btn-lg btn-warning" href="#">Continue reading...</a></p>
+        </div>
+    </div>
+</div>
+<hr class="featurette-divider bg-dark custom-hr">
+
+
+<hr class="featurette-divider bg-dark custom-hr">
+<div class="container d-flex rounded-pill justify-content-center align-items-center" style="min-height: 50vh; background-color: #000000;">
+    <div class="row text-center text-white">
+        <div class="col-lg-3">
+            <!-- Fiction Icon -->
+            <div class="bd-placeholder-img rounded-circle d-flex justify-content-center align-items-center" style="width: 140px; height: 140px; background-color: #FFD600;">
+                <i class="fas fa-book-open text-black fa-3x"></i>
+            </div>
+            <h2 class="carousel">Fiction</h2>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-3">
+            <!-- Horror Icon -->
+            <div class="bd-placeholder-img rounded-circle d-flex justify-content-center align-items-center" style="width: 140px; height: 140px; background-color: #FFD600;">
+                <i class="fas fa-ghost text-black fa-3x"></i>
+            </div>
+            <h2 class="carousel">Horror</h2>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-3">
+            <!-- Comedy Icon -->
+            <div class="bd-placeholder-img rounded-circle d-flex justify-content-center align-items-center" style="width: 140px; height: 140px; background-color: #FFD600;">
+                <i class="fas fa-laugh text-black fa-3x"></i>
+            </div>
+            <h2 class="carousel">Comedy</h2>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-3">
+            <!-- Fantasy Icon -->
+            <div class="bd-placeholder-img rounded-circle d-flex justify-content-center align-items-center" style="width: 140px; height: 140px; background-color: #FFD600;">
+                <i class="fas fa-magic text-black fa-3x"></i>
+            </div>
+            <h2 class="carousel">Fantasy</h2>
+        </div>
+    </div>
+</div>
+<hr class="featurette-divider">
+<div id="successAlert" class="alert alert-success" role="alert" style="display: none;">
+  A simple success alert—check it out!
+</div>
+<div class="container mt-2 ">
+    <form class="d-flex">
+        <input class="form-control form-control-lg w-50" type="search" placeholder="Search categories..." aria-label="Search">
+        <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+    </form>
+</div>
+<div class="container mt-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @foreach (var Book in Model)
+            {
+                <div class="col">
+        <div class="card shadow-sm " >
+                        <div class="row g-0 ">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <h3 class="mb-0 ">@Book.BookTitle</h3>
+                    <p class="card-text mb-auto">@Book.Description</p>
+                    <hr>
+                    <p class="mb-1 text-body-secondary"><strong>Author:</strong>@Book.AuthorName</p>
+                    <p class="mb-1 text-body-secondary">
+                        <strong>Quantity:</strong>
+                        <span class="@((Book.Quantity == 0) ? "text-danger" : "text-success")">
+                            @Book.Quantity
+                        </span>
+                    </p>
+
+                            <a asp-controller="Book" asp-action="Borrow" asp-route-id="@Book.BookID"
+                               class="btn mt-3 stretched-link text-dark" style="background-color: #FFD600;"
+                               onclick="showAlert(event)">Apply for Book</a>
+                        </div>
+                            <!-- Book Thumbnail (Image) -->
+                            <div class="col-auto d-none d-lg-block p-3">
+                                @if (!string.IsNullOrEmpty(Book.ImagePath))
+                                {
+                                    <img src="@Book.ImagePath" alt="@Book.BookTitle" class="img-fluid rounded" style="width: 200px; height: 250px; margin-top: 10px;">
+                                }
+                                else
+                                {
+                                    <span>No Image</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+<hr class="featurette-divider">
+
+

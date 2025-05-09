@@ -1,0 +1,62 @@
+﻿@model Login
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Pages/Login.cshtml";
+
+}
+
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6 col-md-8 col-12">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                </div>
+                                <form class="user" method="post">
+                                    <div class="form-group">
+                                        <input asp-for="Email" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Enter Email Address..." id="Email" required="" maxlength="100" type="email" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-maxlength="The field Email must be a string or array type with a maximum length of '100'." data-val-maxlength-max="100" data-val-required="The Email field is required." name="Email" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input asp-for="Password" id="Password" class="form-control form-control-user" placeholder="Password" type="password" required="" maxlength="255" data-val="true" data-val-required="The Password field is required." name="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">
+                                                Remember
+                                                Me
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                                    <hr>
+                                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8DSZ7hLbTxBJjHMwElPnoL6W5mhempuh7LOp2ujqHE5Xci4dhr7aLKQTard4nGifg1vh3hDYdfaRg6tfz8fmHbgXDBQL2I1GN_DvKVq1VWZTH03r2ea0QnavxFmkKKPGT1L9HbbOI0vIiIaH7OKpF5s">
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" href="/User/Register">Create an Account!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

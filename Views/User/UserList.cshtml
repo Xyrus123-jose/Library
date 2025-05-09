@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Library.Models.User>
+@using Library.Models
+
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Pages/Layout.cshtml";
+}
+
+<h1>UserList</h1>
+
+<p>
+    <a asp-action="AddUser" class="btn btn-primary">New User </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+               User Profile
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    <div class="categories-table-img">
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@item.ImagePath" class="product-item" style="width:100px; height:100px; object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </div>
+                </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @item.Phone
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.Password
+            </td>
+                <td>
+                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

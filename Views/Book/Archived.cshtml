@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Library.Models.Borrow>
+
+@{
+    ViewData["Title"] = "Books Archived";
+    Layout = "~/Pages/Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Book Requests</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Profile</th>
+                            <th>Student Name</th>
+                            <th>Book</th>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Borrow Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(i => i.Status == "Archived"))
+                        {
+                            <tr>
+                                <td>
+                                    <div class="categories-table-img">
+                                        @if (!string.IsNullOrEmpty(item.User.ImagePath))
+                                        {
+                                            <img src="@item.User.ImagePath" alt="@item.User.Name" class="product-item" style="width:100px; height:100px; object-fit:cover;" />
+                                        }
+                                        else
+                                        {
+                                            <span>No Image</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td>@item.User.Name</td>
+                                <td>
+                                    <div class="categories-table-img">
+                                        @if (!string.IsNullOrEmpty(item.Book.ImagePath))
+                                        {
+                                            <img src="@item.Book.ImagePath" class="product-item" style="width:100px; height:100px; object-fit:cover;" />
+
+                                        }
+                                        else
+                                        {
+                                            <span>No Image</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td>@item.Book.BookTitle</td>
+                                <td>@item.Book.AuthorName</td>
+                                <td>@item.BorrowDate</td>
+                                <td>
+                                    <div class="card bg-secondary text-white shadow d-flex align-items-center justify-content-center" style="min-height: 25px;">
+                                        <span class="text">Archived</span>
+                                    </div>
+                                </td>
+                                <td>
+                                        <div class="btn-group" role="group">
+
+                                            <!-- Approve Button -->
+                                            <form method="post" asp-action="Restore" asp-route-id="@item.Id">
+                                                <button type="submit" class="btn btn-info btn-sm" style="margin-left: 5px;">Restore</button>
+                                            </form>
+
+                                            <!-- Reject Button -->
+                                            <form method="post" asp-action="Reject" asp-route-id="@item.Id">
+                                                <button type="submit" class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>
+                                            </form>
+                                        </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+                  </div>
+                   </div>
+

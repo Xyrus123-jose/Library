@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Library.Models.Borrow>
+@{
+    ViewData["Title"] = "Books Borrowed";
+    Layout = "~/Pages/_Layout.cshtml";
+    var loggedInUser = Context.Session.GetString("Name");
+}
+
+<div style="height: 20px;"></div>
+
+<div class="m-4">
+    <table class="table mx-auto shadow rounded">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Book</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Borrow date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="border-bottom">
+                    <th scope="row">
+                        @if (!string.IsNullOrEmpty(item.Book.ImagePath))
+                        {
+                            <img src="@item.Book.ImagePath" alt="@item.Book.BookTitle" class="product-item" style="width:100px; height:100px; object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </th>
+                    <td>@item.Book.BookTitle</td>
+                    <td>@item.Book.AuthorName</td>
+                    <td>@item.ReturnDate</td>
+                    <td>
+                        <span class="badge
+    @(item.Status == "Approved" ? "bg-success" :
+      item.Status == "Pending" ? "bg-warning" :
+      "bg-danger")
+    rounded-pill text-light">
+                            @item.Status
+                        </span>
+
+                    </td>
+<td>
+    @if (item.Status != "Pending")
+    {
+     
+        <span type="text" class=" text-secondary" disabled>Not Allowed</span>
+    }
+    else
+    {
+        <!-- If status is "Pending", show the "Delete" button -->
+        <form action="@Url.Action("Delete", new { id = item.Id })" method="post" style="display:inline;">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this request?');">Cancel</button>
+        </form>
+    }
+</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Library.Models.Book>
+
+@{
+    ViewData["Title"] = "BookList";
+    Layout = "~/Pages/Layout.cshtml";
+}
+
+<h1>BookList</h1>
+
+<p>
+    <a asp-action="AddBook">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+               Book 
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    <div class="categories-table-img">
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@item.ImagePath" class="product-item" style="width:100px; height:100px; object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </div>
+                </td>
+            <td>
+                @item.BookTitle
+            </td>
+            <td>
+                @item.AuthorName
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+               @item.Category.CategoryName
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BookID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BookID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BookID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

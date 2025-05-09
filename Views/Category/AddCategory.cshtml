@@ -1,0 +1,40 @@
+﻿@model Library.Models.Category
+@using Library.Models
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Pages/Layout.cshtml";
+}
+
+<h1>CategoryList</h1>
+<div class="d-flex rounded justify-content-center align-items-center flex-column" style="height:50vh;">
+    <div class="d-flex align-items-center mb-4">
+        <form asp-action="AddCategory" method="post"class="d-flex align-items-center ">
+           <input asp-for="CategoryName" type="text" class="form-control rounded" placeholder="Enter category" style="width: 300px; margin-right: 25px;">
+                <input type="submit" value="Create" class="btn btn-success rounded" />
+        </form>
+    </div>
+
+    <div class="mt-3">
+        <table class="table mx-auto shadow rounded" style="width: auto; min-width: 400px;">
+            <thead class="thead-dark rounded">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.CategoryName)</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <tr class="border-bottom">
+                        <td> @category.CategoryName</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@category.CategoryID" class="btn btn-info rounded btn-sm ms-2">Edit</a>
+                            |
+                            <a asp-action="Delete" asp-route-id="@category.CategoryID" class="btn btn-danger rounded btn-sm ms-2">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
